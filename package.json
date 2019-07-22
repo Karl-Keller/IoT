@@ -1,0 +1,22 @@
+{
+  "name": "connected-air-conditioner-adv",
+  "version": "1.0.0",
+  "description": "An IoT demonstration using JS",
+  "main": "connectedAirConditionerAdv.js",
+  "scripts": {
+    "test": "testAC",
+    "start": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "testAC"
+  },
+  "author": "KKeller",
+  "license": "ISC",
+  "dependencies": {
+    "azure-iot-device": "^1.8.3",
+    "azure-iot-device-mqtt": "^1.8.3",
+    "node-pid-controller": "^1.0.1",
+    "probability-distributions": "^0.9.1"
+  }
+}
