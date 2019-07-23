@@ -7,7 +7,7 @@ var clientFromConnectionString = require('azure-iot-device-mqtt').clientFromConn
 var Message = require('azure-iot-device').Message;
 var ConnectionString = require('azure-iot-device').ConnectionString;
 
-var connectionString = 'HostName=saas-iothub-9ac2eb24-30af-4f28-8f9e-bdf908e871cb.azure-devices.net;DeviceId=f30lws;SharedAccessKey=qxEfOiNbElv6vf9UFf9rvuqngZ/59TvO2i+JcFbyJCI=';  //see getting a connection string
+var connectionString = 'HostName=iotc-3a4a90e9-1cab-43bd-90be-69b2174c27aa.azure-devices.net;DeviceId=5f868f0f-e1fa-4d4b-8825-0a39412ee008;SharedAccessKey=83xhnfkh00yPH7267fdT/0MqxZfcZpIG78mM4dEdwuM=';  //see getting a connection string
 var client = clientFromConnectionString(connectionString);
 
 function getRndInteger(min, max) {
@@ -22,19 +22,19 @@ var targetTemperature = 45;
 controller.setTarget(targetTemperature); // 45 degrees F
 
 function sendTelemetry() {
-    var chamberTemperature = targetTemperature + normalArray[getRndInteger(0, normalArray.length)];
+    var temperature = targetTemperature + normalArray[getRndInteger(0, normalArray.length)];
     var correction = controller.update(chamberTemperature); // chamberTemperature is the current temp
     var humidity = 40 + normalArray[getRndInteger(0, normalArray.length)];
-    var coolantPressure = 20 + normalArray[getRndInteger(0, normalArray.length)];
+    var pressure = 20 + normalArray[getRndInteger(0, normalArray.length)];
     var fanmode = 0;
     var data = JSON.stringify( {
-        chamberTemperature: chamberTemperature,
+        temperature: temperature,
         temperatureCorrection: correction,
         humidity: humidity,
-        coolantPressure: coolantPressure,
-        fanmode: (chamberTemperature < 50) ? "1" : "0",
-        overheat: (chamberTemperature > 75) ? "ER120" : undefined,
-        losscoolantpressure: (coolantPressure < 8) ? "ER121" : undefined
+        pressure: pressure,
+        fanmode: (temperature < 50) ? "1" : "0",
+        overheat: (temperature > 75) ? "ER120" : undefined,
+        losscoolantpressure: (pressure < 8) ? "ER121" : undefined
     }
     );
     var message = new Message(data);
