@@ -1,4 +1,4 @@
-# IoT-1
+# IoT
 This demonstration follows the MS Azure IoT Instructions here:
 
 https://docs.microsoft.com/en-us/azure/iot-central/howto-connect-nodejs
