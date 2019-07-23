@@ -18,12 +18,12 @@ function getRndInteger(min, max) {
 
 var normalArray = PD.rnorm(10);
 var controller = new Controller(0.25, 0.01, 0.01, 1); // k_p, k_i, k_d, dt
-var targetTemperature = 45;
+var targetTemperature = 65;
 controller.setTarget(targetTemperature); // 45 degrees F
 
 function sendTelemetry() {
     var temperature = targetTemperature + normalArray[getRndInteger(0, normalArray.length)];
-    var correction = controller.update(chamberTemperature); // chamberTemperature is the current temp
+    var correction = controller.update(temperature); // chamberTemperature is the current temp
     var humidity = 40 + normalArray[getRndInteger(0, normalArray.length)];
     var pressure = 20 + normalArray[getRndInteger(0, normalArray.length)];
     var fanmode = 0;
@@ -32,7 +32,7 @@ function sendTelemetry() {
         temperatureCorrection: correction,
         humidity: humidity,
         pressure: pressure,
-        fanmode: (temperature < 50) ? "1" : "0",
+        fanmode: (temperature > 75) ? "1" : "0",
         overheat: (temperature > 75) ? "ER120" : undefined,
         losscoolantpressure: (pressure < 8) ? "ER121" : undefined
     }
